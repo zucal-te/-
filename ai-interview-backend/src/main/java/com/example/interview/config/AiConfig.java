@@ -11,3 +11,6 @@ public class AiConfig {
     private String apiKey;
     private String apiUrl;
 }
+
+
+//java -jar target/interview-0.0.1-SNAPSHOT.jar --spring.main.web-application-type=servlet http://localhost:8080/interview/chat/all http://localhost:8080/interview/chat/all
