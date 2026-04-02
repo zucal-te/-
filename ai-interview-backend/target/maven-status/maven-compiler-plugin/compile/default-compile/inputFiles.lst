@@ -1,0 +1,8 @@
+D:\-\ai-interview-backend\src\main\java\com\example\interview\InterviewApplication.java
+D:\-\ai-interview-backend\src\main\java\com\example\interview\service\AiService.java
+D:\-\ai-interview-backend\src\main\java\com\example\interview\controller\InterviewController.java
+D:\-\ai-interview-backend\src\main\java\com\example\interview\util\Result.java
+D:\-\ai-interview-backend\src\main\java\com\example\interview\config\AiConfig.java
+D:\-\ai-interview-backend\src\main\java\com\example\interview\service\impl\AiServiceImpl.java
+D:\-\ai-interview-backend\src\main\java\com\example\interview\entity\ChatMessage.java
+D:\-\ai-interview-backend\src\main\java\com\example\interview\mapper\InterviewMapper.java

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.interview.mapper.InterviewMapper">
+    <!-- 新增对话记录（适配你创建的chat_message表结构） -->
+    <insert id="addChatMessage" parameterType="com.example.interview.entity.ChatMessage">
+        INSERT INTO chat_message (
+            interview_id,
+            user_id,
+            question_id,
+            user_answer,
+            ai_feedback,
+            score,
+            create_time
+        ) VALUES (
+            #{interviewId},
+            #{userId},
+            #{questionId},
+            #{userAnswer},
+            #{aiFeedback},
+            #{score},
+            NOW()
+        )
+    </insert>
+
+    <!-- 查询所有对话记录 -->
+    <select id="getAllChatMessage" resultType="com.example.interview.entity.ChatMessage">
+        SELECT 
+            id,
+            interview_id AS interviewId,
+            user_id AS userId,
+            question_id AS questionId,
+            user_answer AS userAnswer,
+            ai_feedback AS aiFeedback,
+            score,
+            create_time AS createTime
+        FROM chat_message
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据ID查询单条对话记录 -->
+    <select id="getChatMessageById" parameterType="java.lang.Long" resultType="com.example.interview.entity.ChatMessage">
+        SELECT 
+            id,
+            interview_id AS interviewId,
+            user_id AS userId,
+            question_id AS questionId,
+            user_answer AS userAnswer,
+            ai_feedback AS aiFeedback,
+            score,
+            create_time AS createTime
+        FROM chat_message
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据interview_id查询该面试的所有对话记录 -->
+    <select id="getChatMessageByInterviewId" parameterType="java.lang.String" resultType="com.example.interview.entity.ChatMessage">
+        SELECT 
+            id,
+            interview_id AS interviewId,
+            user_id AS userId,
+            question_id AS questionId,
+            user_answer AS userAnswer,
+            ai_feedback AS aiFeedback,
+            score,
+            create_time AS createTime
+        FROM chat_message
+        WHERE interview_id = #{interviewId}
+        ORDER BY create_time ASC
+    </select>
+</mapper>

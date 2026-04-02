@@ -1,0 +1,8 @@
+com\example\interview\entity\ChatMessage.class
+com\example\interview\service\impl\AiServiceImpl.class
+com\example\interview\InterviewApplication.class
+com\example\interview\controller\InterviewController.class
+com\example\interview\config\AiConfig.class
+com\example\interview\service\AiService.class
+com\example\interview\mapper\InterviewMapper.class
+com\example\interview\util\Result.class
