@@ -1,17 +1,23 @@
 package com.example.interview.mapper;
-
-import com.example.interview.entity.ChatMessage;
+import com.example.interview.entity.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
 public interface InterviewMapper {
-    // 新增对话记录（适配chat_message表新结构）
+    // 1. 会话操作
+    int insertSession(InterviewSession session);
+    int finishSession(@Param("interviewId") String interviewId);
+
+    // 2. 题库操作：根据岗位和难度随机抽取题目
+    List<InterviewQuestion> getRandomQuestions(@Param("role") String role, @Param("difficulty") String difficulty, @Param("limit") int limit);
+
+    // 3. 对话明细操作
     int addChatMessage(ChatMessage chatMessage);
-    // 查询所有对话记录
-    List<ChatMessage> getAllChatMessage();
-    // 根据ID查询单条对话记录
-    ChatMessage getChatMessageById(Long id);
-    // 根据interview_id查询该面试的所有对话记录
-    List<ChatMessage> getChatMessageByInterviewId(String interviewId);
+    List<ChatMessage> getChatMessageByInterviewId(@Param("interviewId") String interviewId);
+
+    // 4. 报告操作
+    int insertReport(InterviewReport report);
 }
+
