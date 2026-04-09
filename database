@@ -1,0 +1,70 @@
+-- 创建数据库（不存在才创建，不会报错）
+CREATE DATABASE IF NOT EXISTS ai_interview DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE ai_interview;
+
+-- 重点：加了 IF NOT EXISTS，表存在就不会重复建，直接跳过
+-- 用户表
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(50) NOT NULL COMMENT '用户唯一ID',
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 面试会话表
+CREATE TABLE IF NOT EXISTS `interview_session` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `interview_id` varchar(50) NOT NULL COMMENT '面试唯一ID',
+  `user_id` varchar(50) NOT NULL,
+  `role` varchar(50) NOT NULL COMMENT '面试岗位',
+  `difficulty` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT '进行中',
+  `start_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `end_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_interview_id` (`interview_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 对话记录表
+CREATE TABLE IF NOT EXISTS `chat_message` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `interview_id` varchar(50) NOT NULL,
+  `user_id` varchar(50) NOT NULL,
+  `question_id` varchar(50) DEFAULT NULL,
+  `user_answer` text COMMENT '用户文字回答',
+  `ai_feedback` text COMMENT 'AI评价',
+  `score` int DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 面试题目表
+CREATE TABLE IF NOT EXISTS `interview_question` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `question_id` varchar(50) NOT NULL,
+  `role` varchar(50) NOT NULL,
+  `difficulty` varchar(20) DEFAULT NULL,
+  `content` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_question_id` (`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 面试报告表
+CREATE TABLE IF NOT EXISTS `interview_report` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `interview_id` varchar(50) NOT NULL,
+  `user_id` varchar(50) NOT NULL,
+  `total_score` int DEFAULT NULL,
+  `conclusion` text,
+  `dimensions` text COMMENT 'JSON格式维度',
+  `strengths` text,
+  `weaknesses` text,
+  `suggestion` text,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
